@@ -49,7 +49,7 @@ MAX_CONTINUATIONS = 1  # reprises après pause_turn (recherche web longue)
 MAX_SEARCHES = {"actu": int(os.environ.get("BLOG_MAX_SEARCHES_ACTU", "2")),
                 "fond": int(os.environ.get("BLOG_MAX_SEARCHES_FOND", "2"))}
 
-MIN_WORDS, MAX_WORDS = 700, 1100
+MIN_WORDS, MAX_WORDS = 650, 1250
 MAX_DESCRIPTION = 155
 
 SITE = "https://www.moovapp.org"
@@ -68,14 +68,17 @@ SITE_PAGES = {
 # Formulations interdites : promesses de gain ou incitations directes à l'achat / la vente.
 FORBIDDEN = [
     r"rendements? garantis?", r"gains? garantis?", r"gains? assur[ée]s?", r"profits? assur[ée]s?",
-    r"sans (aucun )?risque", r"devenir riche", r"argent facile", r"enrichissez[- ]vous",
+    # « placement sans risque » est une promesse ; « aucun placement n'est sans risque » est un avertissement légitime.
+    r"(placements?|investissements?|gains?|rendements?|profits?|strat[ée]gies?|trades?) (100 ?% )?sans (aucun )?risque",
+    r"devenir riche", r"argent facile", r"enrichissez[- ]vous",
     r"achetez (d[eè]s )?maintenant", r"vendez (d[eè]s )?maintenant", r"il faut (absolument )?(acheter|vendre)",
     r"\b(achetez|vendez) (l'action|les actions|le titre)\b", r"\b100 ?% (s[uû]r|gagnant)",
     r"coup s[uû]r", r"\bne peut que monter\b",
 ]
 
 COMMON_RULES = f"""RÈGLES DE RÉDACTION (toutes obligatoires)
-- Longueur du corps : entre 800 et 1000 mots (jamais moins de {MIN_WORDS}, jamais plus de {MAX_WORDS}).
+- Longueur du corps : entre 800 et 1000 mots (jamais moins de {MIN_WORDS}, jamais plus de {MAX_WORDS}). Les sources et l'avertissement final comptent dans ce total.
+- Méta-description : 140 caractères maximum, espaces compris.
 - Titre accrocheur et précis qui contient le mot-clé principal mot pour mot.
 - Intro courte (2 à 4 phrases) qui dit pourquoi le sujet compte pour le lecteur, puis au moins 3 sous-titres H2 (## ...). Pas de titre H1.
 - Au moins une liste à puces ou numérotée. Un tableau Markdown quand il aide à comparer.
@@ -287,7 +290,10 @@ def parse_output(raw: str) -> dict:
     if missing:
         raise ValueError(f"champs manquants dans l'en-tête : {', '.join(sorted(missing))}")
     tags = [t.strip().lower() for t in fields["TAGS"].split(",") if t.strip()]
-    return {"title": fields["TITLE"], "keyword": fields["KEYWORD"], "description": fields["DESCRIPTION"],
+    desc = fields["DESCRIPTION"]
+    if len(desc) > MAX_DESCRIPTION:  # raccourcit proprement au dernier mot entier plutôt que de tout rejeter
+        desc = desc[:MAX_DESCRIPTION - 1].rsplit(" ", 1)[0].rstrip(" ,;:.-–") + "…"
+    return {"title": fields["TITLE"], "keyword": fields["KEYWORD"], "description": desc,
             "tags": tags, "body": body.strip()}
 
 
@@ -402,8 +408,12 @@ def main() -> int:
     article, errors = None, []
     attempts = 1 if args.from_file else MAX_ATTEMPTS
     for attempt in range(1, attempts + 1):
+        attempt_prompt = prompt
+        if errors:  # le second essai sait pourquoi le premier a été refusé
+            attempt_prompt += ("\nUne première version a été refusée par le contrôle automatique pour ces raisons, "
+                               "corrige-les :\n" + "\n".join(f"- {e}" for e in errors) + "\n")
         try:
-            raw = args.from_file.read_text(encoding="utf-8") if args.from_file else call_api(prompt, mode)
+            raw = args.from_file.read_text(encoding="utf-8") if args.from_file else call_api(attempt_prompt, mode)
             article = parse_output(raw)
             errors = validate(article, mode, topic)
         except Exception as exc:  # erreur API ou format illisible
