@@ -8,7 +8,17 @@ on:
     # Les jours sans publication, le run s'arrête en quelques secondes sans appeler l'API.
     - cron: "0 6 * * *"
     - cron: "0 7 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Test sans publication : génère l'article et l'affiche dans le log, sans commit"
+        type: boolean
+        default: false
+      mode:
+        description: "Type d'article (vide = alternance automatique)"
+        type: choice
+        options: ["", "actu", "fond"]
+        default: ""
 
 permissions:
   contents: write
@@ -35,13 +45,19 @@ jobs:
       - name: Générer l'article
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          # Optionnel : définir BLOG_MODEL / BLOG_EFFORT dans Settings > Variables
-          BLOG_MODEL: ${{ vars.BLOG_MODEL || 'claude-opus-5-5' }}
+          # Optionnel : modifier ces réglages dans Settings > Secrets and variables > Actions > Variables
+          BLOG_MODEL: ${{ vars.BLOG_MODEL || 'claude-sonnet-5-5' }}
           BLOG_EFFORT: ${{ vars.BLOG_EFFORT || 'medium' }}
           BLOG_INTERVAL_DAYS: ${{ vars.BLOG_INTERVAL_DAYS || '2' }}
+          BLOG_MAX_SEARCHES_ACTU: ${{ vars.BLOG_MAX_SEARCHES_ACTU || '2' }}
+          BLOG_MAX_SEARCHES_FOND: ${{ vars.BLOG_MAX_SEARCHES_FOND || '2' }}
+          BLOG_MODE: ${{ inputs.mode || vars.BLOG_MODE }}
         run: |
           if [ "${{ github.event_name }}" = "schedule" ]; then
             python scripts/generate_post.py --not-before 8
+          elif [ "${{ inputs.test }}" = "true" ]; then
+            python scripts/generate_post.py --dry-run
+            cat _preview/*.md
           else
             python scripts/generate_post.py
           fi

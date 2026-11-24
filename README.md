@@ -38,7 +38,8 @@ En cas d'échec, le script fait un second essai avant d'abandonner. GitHub vous 
 - Secret `ANTHROPIC_API_KEY` : obligatoire.
 - Variables facultatives :
   - `BLOG_INTERVAL_DAYS` : jours entre deux articles (`2` par défaut) ;
-  - `BLOG_MODEL` : `claude-opus-5-5` par défaut ;
+  - `BLOG_MODEL` : `claude-sonnet-5-5` par défaut (`claude-opus-5-5` pour une rédaction plus fine, plus cher ; `claude-haiku-5-5` pour le coût minimal) ;
+  - `BLOG_MAX_SEARCHES_ACTU` / `BLOG_MAX_SEARCHES_FOND` : recherches web par article (2 par défaut) ;
   - `BLOG_EFFORT` : `low`, `medium` (défaut) ou `high`.
 
 Pour forcer le type du prochain article lors d'un test local : `BLOG_MODE=actu` ou `BLOG_MODE=fond`.
@@ -52,6 +53,10 @@ python3 scripts/generate_post.py --dry-run
 ```
 `--dry-run` écrit l'aperçu dans `_preview/` (ignoré par git) sans toucher à `_posts/` ni à `topics.json`. `--from-file mon-article.txt` vérifie un texte déjà rédigé sans appeler l'API.
 
+## Tester sans publier
+
+**Actions → Article tous les 2 jours → Run workflow**, cochez « Test sans publication » et choisissez le type d'article. L'article généré s'affiche dans le log de l'étape « Générer l'article », avec son coût (recherches et tokens). Rien n'est commité.
+
 ## Coût indicatif
 
-Le premier coût vient des résultats de recherche web, relus en entrée par le modèle. Les recherches sont plafonnées à 4 par article d'actualité et 2 par article de fond (variables `BLOG_MAX_SEARCHES_ACTU` et `BLOG_MAX_SEARCHES_FOND`). Comptez environ 0,30 à 0,60 $ par article d'actualité et 0,15 à 0,30 $ par article de fond avec Claude Opus 5.5, soit environ 3 à 7 $ par mois à raison de 15 articles. Le coût réel de chaque article (recherches et tokens) est affiché dans le log du workflow. GitHub Pages et GitHub Actions sont gratuits pour un repo public.
+Le premier coût vient des résultats de recherche web, relus en entrée par le modèle. Avec Claude Sonnet 5.5 (2 $ / 10 $ par million de tokens) et 2 recherches par article, le coût réel de chaque article s'affiche dans le log du workflow. GitHub Pages et GitHub Actions sont gratuits pour un repo public.

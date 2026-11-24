@@ -40,13 +40,13 @@ POSTS_DIR = ROOT / "_posts"
 PREVIEW_DIR = ROOT / "_preview"
 TZ = ZoneInfo("Europe/Paris")
 
-MODEL = os.environ.get("BLOG_MODEL", "claude-opus-5-5")
+MODEL = os.environ.get("BLOG_MODEL", "claude-sonnet-5-5")
 EFFORT = os.environ.get("BLOG_EFFORT", "medium")
 INTERVAL_DAYS = int(os.environ.get("BLOG_INTERVAL_DAYS", "2"))
 MAX_ATTEMPTS = 2
 MAX_CONTINUATIONS = 1  # reprises après pause_turn (recherche web longue)
 # Plafond de recherches web par article : chaque résultat est relu en entrée, c'est le premier poste de coût.
-MAX_SEARCHES = {"actu": int(os.environ.get("BLOG_MAX_SEARCHES_ACTU", "4")),
+MAX_SEARCHES = {"actu": int(os.environ.get("BLOG_MAX_SEARCHES_ACTU", "2")),
                 "fond": int(os.environ.get("BLOG_MAX_SEARCHES_FOND", "2"))}
 
 MIN_WORDS, MAX_WORDS = 700, 1100
