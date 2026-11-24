@@ -1,14 +1,14 @@
 # --- Identité du site --------------------------------------------------------
-title: "Mieux manger au quotidien"
-description: "Idées de repas, meal prep, listes de courses saines et pas chères : des conseils simples pour mieux manger sans se compliquer la vie."
+title: "Actu Éco & Finance"
+description: "L'actualité économique et les marchés financiers décryptés simplement : inflation, taux, banques centrales, bourse et bases de l'investissement."
 lang: fr_FR
 locale: fr_FR
-author: "L'équipe Mieux manger au quotidien"
+author: "La rédaction Actu Éco & Finance"
 timezone: Europe/Paris
 
 # À ADAPTER (voir README) : https://<votre-user>.github.io et /<nom-du-repo>
 url: "https://looprun-lab.github.io"
-baseurl: "/mieux-manger"
+baseurl: "/actu-eco-finance"
 
 # --- Thème et plugins (tous supportés nativement par GitHub Pages) ----------
 theme: minima

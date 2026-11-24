@@ -1,5 +1,5 @@
 ---
 layout: home
-title: Mieux manger sans se compliquer la vie
-description: "Idées de repas rapides, meal prep, listes de courses saines et pas chères : un nouvel article pratique tous les deux jours."
+title: L'actualité économique et les marchés, décryptés
+description: "Actualité économique, marchés financiers, inflation, taux et banques centrales expliqués simplement. Un nouvel article tous les deux jours."
 ---

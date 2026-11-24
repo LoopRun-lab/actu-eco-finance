@@ -1,0 +1,14 @@
+{%- comment -%} Bannière MoovApp. style = "wide" | "inline" | "card" ; seed = nombre pour varier le message. {%- endcomment -%}
+{%- assign banners = site.data.moovapp.banners -%}
+{%- assign idx = include.seed | default: 0 | modulo: banners.size -%}
+{%- assign b = banners[idx] -%}
+{%- assign style = include.style | default: "wide" -%}
+<aside class="mv mv--{{ style }}" aria-label="Publicité MoovApp">
+  <div class="mv__body">
+    <p class="mv__top"><span class="mv__logo">MOOV<small>TERMINAL</small></span><span class="mv__ad">Publicité</span></p>
+    <p class="mv__kicker">{{ b.kicker }}</p>
+    <p class="mv__title">{{ b.title }}</p>
+    <p class="mv__text">{{ b.text }}</p>
+  </div>
+  <a class="mv__cta" href="{{ site.data.moovapp.url }}{{ b.path }}?utm_source=blog-actu-eco&amp;utm_medium=banniere-{{ style }}&amp;utm_campaign={{ b.campaign }}" target="_blank" rel="noopener sponsored">{{ b.cta }} <span aria-hidden="true">→</span></a>
+</aside>

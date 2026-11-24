@@ -2,27 +2,24 @@
 layout: page
 title: À propos
 permalink: /a-propos/
-description: "Qui sommes-nous ? Un blog pratique pour mieux manger au quotidien : repas simples, meal prep et courses saines à petit prix."
+description: "Actu Éco & Finance décrypte l'actualité économique et les marchés financiers pour les particuliers, sans jargon inutile."
 ---
 
-**Mieux manger au quotidien** est un blog pratique pour celles et ceux qui veulent manger plus sainement sans y passer des heures ni dépenser une fortune.
+**Actu Éco & Finance** décrypte l'actualité économique et les marchés financiers pour les particuliers qui veulent comprendre ce qui se passe, sans jargon inutile.
 
-Chaque jour, un nouvel article : idées de repas rapides, recettes simples, méthodes de meal prep, listes de courses équilibrées, comparatifs d'aliments du quotidien.
+Tous les deux jours, un nouvel article, en alternance :
 
-## Notre approche
-
-- **Du concret** : des quantités, des étapes, des listes prêtes à l'emploi.
-- **Du simple** : des ingrédients faciles à trouver et des recettes réalisables en semaine.
-- **Du raisonnable** : pas de régime miracle ni de promesse santé, juste de l'information générale et du bon sens.
+- **Un article d'actualité** : un sujet économique ou financier marquant des derniers jours (banques centrales, inflation, emploi, marchés), expliqué simplement, avec ses sources.
+- **Un article pour comprendre** : les notions de base de l'économie et de l'investissement (inflation, taux, ETF, PEA, gestion du risque…), avec des exemples chiffrés.
 
 ## Comment sont rédigés les articles ?
 
-Les articles sont rédigés avec l'aide d'une intelligence artificielle à partir d'une ligne éditoriale et de règles strictes (contenu utile, pas de conseil médical), puis publiés automatiquement. Une erreur ou une suggestion ? N'hésitez pas à nous le signaler.
+Les articles sont rédigés avec l'aide d'une intelligence artificielle, qui s'appuie sur une recherche web au moment de l'écriture, puis publiés automatiquement. Les articles d'actualité citent leurs sources à la fin. Malgré ces précautions, une erreur reste possible : vérifiez toujours les chiffres importants auprès de la source avant de prendre une décision.
 
-## Pour aller plus loin
+## Publicité
 
-Pour organiser vos menus et vos listes de courses au quotidien, découvrez [Protokole](https://protokole.fr), l'application qui aide à planifier des repas sains et des courses équilibrées.
+Ce site présente des bannières pour [MoovApp](https://www.moovapp.org/?utm_source=blog-actu-eco&utm_medium=a-propos&utm_campaign=a-propos), un terminal de marché (prix en temps réel, calendrier économique, niveaux de trading institutionnel). Elles sont signalées par la mention « Publicité ».
 
 ## Avertissement
 
-Les contenus de ce site sont fournis à titre d'information générale et ne remplacent pas l'avis d'un professionnel de santé. Pour toute question sur votre situation personnelle (pathologie, allergie, grossesse, régime spécifique), consultez un médecin ou un·e diététicien·ne.
+Les contenus de ce site sont fournis à titre d'information générale et pédagogique. Ils ne constituent ni un conseil en investissement, ni une recommandation personnalisée, ni une incitation à acheter ou vendre un instrument financier. Les performances passées ne préjugent pas des performances futures. Investir sur les marchés financiers comporte un risque de perte en capital, pouvant aller jusqu'à la totalité de la somme investie, voire au-delà pour les produits à effet de levier. Avant toute décision, renseignez-vous et, si besoin, consultez un conseiller financier agréé.

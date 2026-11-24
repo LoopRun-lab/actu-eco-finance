@@ -2,7 +2,7 @@
 {%- include type-meta.html type=p.type -%}
 {%- assign words = p.content | strip_html | number_of_words -%}
 {%- assign minutes = words | divided_by: 200 | plus: 1 -%}
-<article class="card card--{{ p.type | default: 'liste' }}">
+<article class="card card--{{ p.type | default: 'explication' }}">
   <a class="card__link" href="{{ p.url | relative_url }}">
     <div class="card__visual" aria-hidden="true"><span>{{ t_emoji }}</span></div>
     <div class="card__body">

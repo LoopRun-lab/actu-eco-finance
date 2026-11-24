@@ -5,34 +5,40 @@ layout: default
 <section class="hero">
   <div class="wrap hero__inner">
     <p class="eyebrow">Nouvel article tous les deux jours</p>
-    <h1 class="hero__title">Mieux manger,<br><em>sans se compliquer la vie.</em></h1>
-    <p class="hero__lead">Idées de repas rapides, meal prep, listes de courses saines et pas chères. Des conseils concrets, avec les quantités, les étapes et les prix.</p>
+    <h1 class="hero__title">L'économie et les marchés,<br><em>décryptés simplement.</em></h1>
+    <p class="hero__lead">Inflation, taux, banques centrales, bourse : l'actualité économique expliquée sans jargon, et les bases pour comprendre les marchés financiers.</p>
     <div class="hero__actions">
       {%- if latest -%}<a class="btn btn--primary" href="{{ latest.url | relative_url }}">Lire le dernier article</a>{%- endif -%}
       <a class="btn btn--ghost" href="{{ '/feed.xml' | relative_url }}">Suivre le blog (RSS)</a>
     </div>
     <ul class="hero__pills" aria-label="Thèmes">
-      <li>🍲 Recettes</li><li>🥡 Meal prep</li><li>🛒 Courses malines</li><li>⚖️ Comparatifs</li>
+      <li>📰 Actualité</li><li>🏦 Banques centrales</li><li>📊 Marchés</li><li>💡 Comprendre</li>
     </ul>
   </div>
-  <div class="hero__plate" aria-hidden="true">
-    <span>🥕</span><span>🥑</span><span>🍋</span><span>🫘</span><span>🥦</span><span>🍅</span>
+  <div class="hero__chart" aria-hidden="true">
+    <svg viewBox="0 0 320 200" preserveAspectRatio="none">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9500" stop-opacity=".35"/><stop offset="1" stop-color="#ff9500" stop-opacity="0"/></linearGradient></defs>
+      <g stroke="rgba(255,255,255,.08)"><line x1="0" y1="50" x2="320" y2="50"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="150" x2="320" y2="150"/></g>
+      <path d="M0,150 L30,140 L55,152 L85,120 L110,128 L140,96 L165,104 L195,72 L220,84 L250,52 L280,60 L320,30 L320,200 L0,200 Z" fill="url(#g)"/>
+      <path class="hero__line" d="M0,150 L30,140 L55,152 L85,120 L110,128 L140,96 L165,104 L195,72 L220,84 L250,52 L280,60 L320,30" fill="none" stroke="#ff9500" stroke-width="3" stroke-linejoin="round"/>
+    </svg>
+    <p class="hero__chart-label">Illustration</p>
   </div>
 </section>
 
 <div class="wrap">
-  {% include protokole-banner.html style="wide" seed=0 %}
+  {% include moovapp-banner.html style="wide" seed=0 %}
 
   <section id="articles" class="section">
     <div class="section__head">
       <h2>Derniers articles</h2>
-      <p>{{ site.posts.size }} article{% if site.posts.size > 1 %}s{% endif %} publié{% if site.posts.size > 1 %}s{% endif %}, et un nouveau tous les deux jours.</p>
+      <p>{% if site.posts.size > 0 %}{{ site.posts.size }} article{% if site.posts.size > 1 %}s{% endif %} publié{% if site.posts.size > 1 %}s{% endif %}, et un nouveau tous les deux jours.{% else %}Le premier article arrive très bientôt.{% endif %}</p>
     </div>
     <div class="grid">
       {%- for post in site.posts -%}
         {% include post-card.html post=post %}
         {%- if forloop.index == 6 -%}
-          </div>{% include protokole-banner.html style="wide" seed=2 %}<div class="grid">
+          </div>{% include moovapp-banner.html style="wide" seed=2 %}<div class="grid">
         {%- endif -%}
       {%- endfor -%}
     </div>
@@ -40,8 +46,8 @@ layout: default
 
   <section class="follow">
     <div>
-      <h2>Ne ratez aucune idée de repas</h2>
-      <p>Un nouvel article tous les deux jours : recettes simples, menus de la semaine, astuces pour payer moins cher. Abonnez-vous au flux RSS avec votre lecteur préféré (Feedly, Inoreader, NetNewsWire…).</p>
+      <h2>Ne ratez aucun décryptage</h2>
+      <p>Un nouvel article tous les deux jours : l'actualité économique de la semaine et les bases pour comprendre les marchés. Abonnez-vous au flux RSS avec votre lecteur préféré (Feedly, Inoreader, NetNewsWire…).</p>
     </div>
     <a class="btn btn--primary" href="{{ '/feed.xml' | relative_url }}">S'abonner au flux RSS</a>
   </section>

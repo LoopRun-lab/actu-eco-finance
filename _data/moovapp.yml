@@ -1,0 +1,27 @@
+# Bannières MoovApp. Textes repris de moovapp.org, sans chiffre de performance.
+url: https://www.moovapp.org
+banners:
+  - kicker: "Calendrier économique"
+    title: "CPI, NFP, décisions de taux : ne ratez plus une publication"
+    text: "Les vraies dates et heures de publication des indicateurs qui font bouger les marchés, dans un seul terminal. Gratuit pour commencer."
+    cta: "Voir le calendrier"
+    path: /calendrier-economique
+    campaign: calendrier
+  - kicker: "Terminal de marché"
+    title: "Le desk d'un pro. Le prix d'un particulier."
+    text: "Prix en temps réel, niveaux de trading institutionnel et calendrier économique réunis dans MoovApp. Sans carte bancaire pour commencer."
+    cta: "Commencer gratuitement"
+    path: /signup
+    campaign: terminal
+  - kicker: "Trading institutionnel"
+    title: "Order blocks, fair value gaps, zones de liquidité"
+    text: "MoovApp détecte automatiquement ces niveaux sur chaque actif, avec l'analyse qui les justifie."
+    cta: "Découvrir MoovApp"
+    path: /
+    campaign: niveaux
+  - kicker: "Sentiment de marché"
+    title: "X et Telegram résumés en une jauge haussier / baissier"
+    text: "Le sentiment social agrégé et lissé, lisible en un coup d'œil, à côté des prix en temps réel."
+    cta: "Essayer MoovApp"
+    path: /
+    campaign: sentiment
