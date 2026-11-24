@@ -290,6 +290,7 @@ def parse_output(raw: str) -> dict:
     if missing:
         raise ValueError(f"champs manquants dans l'en-tête : {', '.join(sorted(missing))}")
     tags = [t.strip().lower() for t in fields["TAGS"].split(",") if t.strip()]
+    body = re.sub(r"</?(u|span|div|font)\b[^>]*>", "", body)  # balises HTML de mise en forme parasites
     desc = fields["DESCRIPTION"]
     if len(desc) > MAX_DESCRIPTION:  # raccourcit proprement au dernier mot entier plutôt que de tout rejeter
         desc = desc[:MAX_DESCRIPTION - 1].rsplit(" ", 1)[0].rstrip(" ,;:.-–") + "…"
