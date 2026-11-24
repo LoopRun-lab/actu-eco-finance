@@ -44,7 +44,10 @@ MODEL = os.environ.get("BLOG_MODEL", "claude-opus-5-5")
 EFFORT = os.environ.get("BLOG_EFFORT", "medium")
 INTERVAL_DAYS = int(os.environ.get("BLOG_INTERVAL_DAYS", "2"))
 MAX_ATTEMPTS = 2
-MAX_CONTINUATIONS = 4  # reprises après pause_turn (recherche web longue)
+MAX_CONTINUATIONS = 1  # reprises après pause_turn (recherche web longue)
+# Plafond de recherches web par article : chaque résultat est relu en entrée, c'est le premier poste de coût.
+MAX_SEARCHES = {"actu": int(os.environ.get("BLOG_MAX_SEARCHES_ACTU", "4")),
+                "fond": int(os.environ.get("BLOG_MAX_SEARCHES_FOND", "2"))}
 
 MIN_WORDS, MAX_WORDS = 700, 1100
 MAX_DESCRIPTION = 155
@@ -129,6 +132,8 @@ def actu_prompt(today: str, recent_titles: list[str]) -> str:
         "pour un lecteur français : décision ou discours de banque centrale (BCE, Fed), inflation, emploi, croissance, "
         "taux, budget et dette, mouvement marquant des marchés (actions, obligations, devises, pétrole, or, crypto), "
         "résultats d'une grande entreprise.\n"
+        f"Tu disposes de {MAX_SEARCHES['actu']} recherches web au maximum : fais des requêtes larges et utiles "
+        "(ex. « actualité économique France cette semaine », « BCE décision », « marchés européens clôture »).\n"
         "2. Vérifie les faits et les chiffres dans au moins deux sources fiables et récentes "
         "(institutions officielles, INSEE, Eurostat, BCE, Fed, presse économique reconnue). Note la date de chaque chiffre.\n"
         "3. Écris l'article : ce qui s'est passé, pourquoi c'est arrivé, ce que ça change pour le lecteur (épargne, crédit, "
@@ -218,7 +223,7 @@ def call_api(prompt: str, mode: str) -> str:
     tools = [{
         "type": "web_search_20260209",
         "name": "web_search",
-        "max_uses": 6,
+        "max_uses": MAX_SEARCHES[mode],
         "user_location": {"type": "approximate", "country": "FR", "timezone": "Europe/Paris"},
     }]
     messages = [{"role": "user", "content": prompt}]
@@ -243,10 +248,11 @@ def call_api(prompt: str, mode: str) -> str:
         for block in message.content:
             if block.type == "text":
                 texts.append(block.text)
-            elif block.type == "server_tool_use":
+            elif block.type == "server_tool_use" and block.name == "web_search":
                 searches += 1
 
         if message.stop_reason == "pause_turn":  # recherche longue : on relance, le serveur reprend
+            tools[0]["max_uses"] = max(0, MAX_SEARCHES[mode] - searches)
             messages = [messages[0], {"role": "assistant", "content": message.content}]
             continue
         if message.stop_reason == "refusal":

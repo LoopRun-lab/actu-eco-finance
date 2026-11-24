@@ -54,4 +54,4 @@ python3 scripts/generate_post.py --dry-run
 
 ## Coût indicatif
 
-Un article utilise quelques recherches web (0,01 $ chacune) et la lecture des résultats en entrée : comptez environ 0,15 à 0,30 $ par article avec Claude Opus 5.5, soit 2 à 5 $ par mois à raison de 15 articles. GitHub Pages et GitHub Actions sont gratuits pour un repo public.
+Le premier coût vient des résultats de recherche web, relus en entrée par le modèle. Les recherches sont plafonnées à 4 par article d'actualité et 2 par article de fond (variables `BLOG_MAX_SEARCHES_ACTU` et `BLOG_MAX_SEARCHES_FOND`). Comptez environ 0,30 à 0,60 $ par article d'actualité et 0,15 à 0,30 $ par article de fond avec Claude Opus 5.5, soit environ 3 à 7 $ par mois à raison de 15 articles. Le coût réel de chaque article (recherches et tokens) est affiché dans le log du workflow. GitHub Pages et GitHub Actions sont gratuits pour un repo public.
